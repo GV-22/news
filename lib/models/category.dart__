@@ -1,0 +1,19 @@
+enum NewsCategory {
+  health,
+  business,
+  entertainment,
+  sport,
+  general,
+  politics,
+  tech
+}
+
+class NewsCategoryModel {
+  final NewsCategory category;
+  final String imageUrl;
+
+  NewsCategoryModel({
+    required this.category,
+    required this.imageUrl,
+  });
+}
