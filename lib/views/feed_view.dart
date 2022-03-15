@@ -17,6 +17,12 @@ class _FeedsViewState extends State<FeedsView> {
   Filter filter = Filter.mostRecent;
 
   @override
+  void didChangeDependencies() {
+    setState(() {});
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final news =
         Provider.of<NewsProvider>(context, listen: false).filterNews(filter);
@@ -49,7 +55,20 @@ class _FeedsViewState extends State<FeedsView> {
           ],
         ),
         const SizedBox(height: 10),
-        _buildFilter(),
+        DropdownButtonHideUnderline(
+          child: DropdownButton<Filter>(
+            items: _buildDropDownItems().toList(),
+            icon: const Icon(
+              Icons.expand_more_outlined,
+              color: Colors.white,
+              size: 20,
+            ),
+            value: filter,
+            onChanged: (newFilter) {
+              setState(() => filter = newFilter ?? filter);
+            },
+          ),
+        ),
         Expanded(
           child: ListView.builder(
             // restorationId: 'feed-list',
@@ -61,25 +80,6 @@ class _FeedsViewState extends State<FeedsView> {
           ),
         )
       ],
-    );
-  }
-
-  Widget _buildFilter() {
-    return DropdownButtonHideUnderline(
-      child: DropdownButton<Filter>(
-        items: _buildDropDownItems().toList(),
-        icon: const Icon(
-          Icons.expand_more_outlined,
-          color: Colors.white,
-          size: 20,
-        ),
-        value: filter,
-        onChanged: (newFilter) {
-          setState(() {
-            filter = newFilter ?? filter;
-          });
-        },
-      ),
     );
   }
 

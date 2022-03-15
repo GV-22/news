@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:news/models/news.dart';
 import 'package:news/providers/news_provider.dart';
+import 'package:news/widgets/image_viewer.dart';
 import 'package:provider/provider.dart';
 
 class NewsView extends StatelessWidget {
@@ -23,207 +24,99 @@ class NewsView extends StatelessWidget {
     final formatedDate = DateFormat('MMM dd, yyyy HH:mm').format(
       news.publishedAt,
     );
-    const _descStyle = TextStyle(color: Colors.white, fontSize: 10);
+    const _descStyle = TextStyle(color: Colors.white, fontSize: 8);
 
     return Scaffold(
-      body: Stack(
-        children: [
-          // Column(
-          //   children: [],
-          // ),
-          _imageBuilder(news.imageUrl),
-          Positioned(
-            top: 20,
-            child: IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(
+          Icons.turned_in_not_outlined,
+          color: news.saved ? Theme.of(context).colorScheme.primary : null,
+        ),
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+      ),
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverAppBar(
+            pinned: false,
+            snap: true,
+            floating: true,
+            expandedHeight: 250.0,
+            leading: IconButton(
+              onPressed: () => Navigator.of(context).pop(),
+              icon: Icon(Icons.chevron_left,
+                  color: Theme.of(context).colorScheme.secondary, size: 40),
             ),
-          ),
-          Positioned(
-            top: 250,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
+            flexibleSpace: FlexibleSpaceBar(
+              title: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    news.source != null
-                        ? news.source!.toUpperCase()
-                        : 'UNKNOWN SOURCE',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      // fontSize: 9,
-                      color: Colors.red,
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(3),
+                    color: Theme.of(context).colorScheme.secondary,
+                    child: Text(
+                      news.title,
+                      style: const TextStyle(fontSize: 10),
+                      // overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Row(
-                    children: [
-                      Text(formatedDate, style: _descStyle),
-                      const SizedBox(width: 5),
-                      if (news.author != null) ...[
-                        const Text('|', style: _descStyle),
+                  const SizedBox(height: 5),
+                  Container(
+                    color: Colors.black,
+                    padding: const EdgeInsets.all(3),
+                    child: Row(
+                      children: [
+                        Text(formatedDate, style: _descStyle),
                         const SizedBox(width: 5),
-                        Text('By ${news.author}', style: _descStyle),
-                      ]
-                    ],
-                  ),
+                        if (news.author != null) ...[
+                          const Text('|', style: _descStyle),
+                          const SizedBox(width: 5),
+                          Text('By ${news.author}', style: _descStyle),
+                        ]
+                      ],
+                    ),
+                  )
                 ],
               ),
+              background: ImageViewer(imageUrl: news.imageUrl, size: 350),
             ),
           ),
-          Positioned(
-            top: 300,
-            child: ScrollConfiguration(
-              behavior: _CustomScrollBehavior(),
-              child: SingleChildScrollView(
-                child: Container(
+          SliverList(
+            delegate: SliverChildListDelegate(
+              <Widget>[
+                Container(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   clipBehavior: Clip.hardEdge,
                   decoration: const BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
+                    // borderRadius: BorderRadius.only(
+                    //   topLeft: Radius.circular(20),
+                    //   topRight: Radius.circular(20),
+                    // ),
                   ),
                   child: Column(
                     children: [
                       Text(
-                        '${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}',
+                        '${news.description}${news.description}${news.description}${news.description}${news.description}'
+                        '${news.description}${news.description}${news.description}${news.description}${news.description}'
+                        '${news.description}${news.description}${news.description}${news.description}${news.description}'
+                        '${news.description}${news.description}${news.description}${news.description}${news.description}'
+                        '${news.description}${news.description}${news.description}${news.description}${news.description}'
+                        '${news.description}${news.description}${news.description}${news.description}${news.description}',
+                        textAlign: TextAlign.justify,
+                        style: const TextStyle(height: 1.7),
                       )
                     ],
                   ),
                 ),
-              ),
+              ],
             ),
           ),
-
-          // SingleChildScrollView(
-          //   child: Container(
-          //     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-          //     clipBehavior: Clip.hardEdge,
-          //     decoration: const BoxDecoration(
-          //       color: Colors.white,
-          //       borderRadius: BorderRadius.only(
-          //         topLeft: Radius.circular(20),
-          //         topRight: Radius.circular(20),
-          //       ),
-          //     ),
-          //     child: Column(
-          //       children: [
-          //         Text(
-          //           '${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}',
-          //         )
-          //       ],
-          //     ),
-          //   ),
-          // )
         ],
       ),
     );
-  }
-
-  Widget _imageBuilder(String imageUrl) {
-    const double _size = double.infinity;
-    const double _height = 350;
-    return CachedNetworkImage(
-      imageUrl: imageUrl,
-      fit: BoxFit.cover,
-      width: _size,
-      height: _height,
-      errorWidget: (context, url, error) {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(8.0),
-          child: Image.asset(
-            'assets/images/img_not_found.jpg',
-            fit: BoxFit.cover,
-            width: _size,
-            height: _height,
-          ),
-        );
-      },
-      placeholder: (context, url) {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(8.0),
-          child: Image.asset(
-            'assets/images/img_placeholder.jpg',
-            fit: BoxFit.cover,
-            width: _size,
-            height: _height,
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _newsContent(News news) {
-    return SafeArea(
-      child: ScrollConfiguration(
-        behavior: _CustomScrollBehavior(),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              //   child: Column(
-              //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     children: [],
-              //   ),
-              // ),
-              // Text(
-              //   news.source != null
-              //       ? news.source!.toUpperCase()
-              //       : 'UNKNOWN SOURCE',
-              //   style: const TextStyle(
-              //     fontWeight: FontWeight.bold,
-              //     fontSize: 9,
-              //     color: Colors.red,
-              //   ),
-              // ),
-              // Row(
-              //   children: [
-              //     Text(formatedDate, style: _descStyle),
-              //     const SizedBox(width: 5),
-              //     if (news.author != null) ...[
-              //       const Text('|', style: _descStyle),
-              //       const SizedBox(width: 5),
-              //       Text('By ${news.author}', style: _descStyle),
-              //     ]
-              //   ],
-              // ),
-              const SizedBox(height: 10),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(40),
-                    topRight: Radius.circular(40),
-                  ),
-                ),
-                child: Text(
-                  '${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}${news.description}',
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _CustomScrollBehavior extends ScrollBehavior {
-  @override
-  Widget buildViewportChrome(
-    BuildContext context,
-    Widget child,
-    AxisDirection axisDirection,
-  ) {
-    return child;
   }
 }

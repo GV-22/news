@@ -19,7 +19,7 @@ class News {
   final String? source;
   final DateTime publishedAt;
   final NewsCategory category;
-  late bool saved;
+  bool saved;
 
   News({
     required this.newsId,
@@ -31,7 +31,7 @@ class News {
     required this.source,
     required this.publishedAt,
     required this.category,
-    saved = false,
+    this.saved = false,
   });
 
   void updateSaved(bool value) => saved = value;

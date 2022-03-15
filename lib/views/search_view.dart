@@ -21,6 +21,10 @@ class _SearchViewState extends State<SearchView> {
     return Scaffold(
       appBar: AppBar(
         // elevation: 0,
+        leading: IconButton(
+          onPressed: () => Navigator.of(context).pop(),
+          icon: const Icon(Icons.chevron_left, color: Colors.white, size: 40),
+        ),
         title: _buildSearchForm(),
       ),
       body: Padding(
@@ -33,7 +37,6 @@ class _SearchViewState extends State<SearchView> {
         ),
       ),
     );
-
   }
 
   Widget _buildSearchForm() {

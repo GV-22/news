@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:news/models/news.dart';
+import 'package:news/views/news_viewer.dart';
+import 'package:news/widgets/image_viewer.dart';
 
 class NewsItemGrid extends StatelessWidget {
   final News _news;
@@ -14,48 +16,51 @@ class NewsItemGrid extends StatelessWidget {
     );
     const _textColor = Colors.white;
     const _descStyle = TextStyle(color: _textColor, fontSize: 10);
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.grey[900],
+    return GestureDetector(
+      onTap: () => Navigator.of(context).pushNamed(
+        NewsView.routeName,
+        arguments: {'newsId': _news.newsId},
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            children: [
-              _imageBuilder(),
-              const SizedBox(height: 10),
-              Text(
-                _reduceTitle(_news.title),
-                maxLines: 2,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 13,
-                  color: _textColor,
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.grey[900],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              children: [
+                ImageViewer(imageUrl: _news.imageUrl, size: 110),
+                const SizedBox(height: 10),
+                Text(
+                  _reduceTitle(_news.title),
+                  maxLines: 2,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 13,
+                    color: _textColor,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Column(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                _news.source != null
-                    ? _news.source!.toUpperCase()
-                    : 'UNKNOWN SOURCE',
-                style: const TextStyle(
-                  fontSize: 9,
-                  color: Colors.red,
+              ],
+            ),
+            Column(
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  _news.source != null
+                      ? _news.source!.toUpperCase()
+                      : 'UNKNOWN SOURCE',
+                  style: const TextStyle(fontSize: 9, color: Colors.red),
                 ),
-              ),
-              const SizedBox(height: 5),
-              Text('By ${_news.author}', style: _descStyle)
-            ],
-          ),
-        ],
+                const SizedBox(height: 5),
+                Text('By ${_news.author}', style: _descStyle)
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

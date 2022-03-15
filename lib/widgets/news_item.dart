@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:news/models/news.dart';
 import 'package:news/views/news_viewer.dart';
+import 'package:news/widgets/image_viewer.dart';
 
 class NewsItem extends StatelessWidget {
   final News _news;
@@ -35,8 +36,8 @@ class NewsItem extends StatelessWidget {
             Flexible(
               flex: 3,
               child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +56,7 @@ class NewsItem extends StatelessWidget {
                         _reduceTitle(_news.title),
                         style: const TextStyle(
                           fontWeight: FontWeight.w400,
-                          fontSize: 15,
+                          fontSize: 13,
                           color: _textColor,
                         ),
                       ),
@@ -78,7 +79,7 @@ class NewsItem extends StatelessWidget {
             const SizedBox(width: 20),
             Flexible(
               flex: 1,
-              child: _imageBuilder(_height),
+              child: ImageViewer(imageUrl: _news.imageUrl, size: _height - 25),
             )
           ],
         ),
@@ -92,40 +93,7 @@ class NewsItem extends StatelessWidget {
     return value.length < _max ? value : "${value.substring(0, _max)}…";
   }
 
-  Widget _imageBuilder(double height) {
-    double _size = height - 30;
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(8.0),
-      child: CachedNetworkImage(
-        imageUrl: _news.imageUrl,
-        fit: BoxFit.cover,
-        height: _size,
-        width: _size,
-        errorWidget: (context, url, error) {
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: Image.asset(
-              'assets/images/img_not_found.jpg',
-              fit: BoxFit.cover,
-              height: _size,
-              width: _size,
-            ),
-          );
-        },
-        placeholder: (context, url) {
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(8.0),
-            child: Image.asset(
-              'assets/images/img_placeholder.jpg',
-              fit: BoxFit.cover,
-              height: _size,
-              width: _size,
-            ),
-          );
-        },
-      ),
-    );
-  }
+ 
 
   // String _reduceDescription(String description) {
   //   // get the first 50 characters of the description
