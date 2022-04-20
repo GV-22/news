@@ -28,8 +28,8 @@ A flutter app to download image from qrcode.
   <img src="/screenshots/and.news.viewer.png" width="240" height="480"> 
 </p>
 <p float="left;padding=10px">
-  <img src="/screenshots/ios.feed.png" width="240" height="480"> 
-  <img src="/screenshots/news.feed.png" width="240" height="480"> 
+  <img src="/screenshots/and.news.saved.png" width="240" height="480"> 
+  <img src="/screenshots/ios.news.feed.png" width="500" height="600"> 
 </p>
                                                                           
 ###### If you have any features you want to see in this package, feel free to make a suggestion. 🎉
