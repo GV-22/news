@@ -1,12 +1,9 @@
-# news
-
-A new Flutter project to view daily news (just for fun).
-
-# Download image from qr code
+# News app
 
 ![Badge](https://img.shields.io/badge/build-passing-success) ![Badge](https://img.shields.io/badge/license-MIT-green) ![Badge](https://img.shields.io/badge/dart-v2.13.1-blue) ![Badge](https://img.shields.io/badge/flutter-v2.1.1-blue)
 
-A flutter app to download image from qrcode.
+
+A new Flutter project to view daily news (just for fun).
 
 ## Getting Started :rocket:
 
