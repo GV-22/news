@@ -29,7 +29,7 @@ class NewsProvider extends ChangeNotifier {
 
   void init() {
     // init news
-    final start = DateTime.now();
+    // final start = DateTime.now();
     int newsId = 1;
     List<News> allNews = [];
     newsId = initNews(businessNews, allNews, newsId, NewsCategory.business);
@@ -41,7 +41,7 @@ class NewsProvider extends ChangeNotifier {
     newsId = initNews(sportNews, allNews, newsId, NewsCategory.sport);
     newsId = initNews(techNews, allNews, newsId, NewsCategory.tech);
 
-    print("Duration ${(DateTime.now().difference(start)).inMilliseconds}");
+    // print("Duration ${(DateTime.now().difference(start)).inMilliseconds}");
     allNews.sort((a, b) => b.publishedAt.compareTo(a.publishedAt));
 
     setNews(allNews);

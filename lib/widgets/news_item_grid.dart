@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:news/models/news.dart';
 import 'package:news/views/news_viewer.dart';
 import 'package:news/widgets/image_viewer.dart';
@@ -11,9 +10,9 @@ class NewsItemGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatedDate = DateFormat('MMM dd, yyyy HH:mm').format(
-      _news.publishedAt,
-    );
+    // final formatedDate = DateFormat('MMM dd, yyyy HH:mm').format(
+    //   _news.publishedAt,
+    // );
     const _textColor = Colors.white;
     const _descStyle = TextStyle(color: _textColor, fontSize: 10);
     return GestureDetector(
@@ -36,8 +35,9 @@ class NewsItemGrid extends StatelessWidget {
                 ImageViewer(imageUrl: _news.imageUrl, size: 110),
                 const SizedBox(height: 10),
                 Text(
-                  _reduceTitle(_news.title),
+                  _news.title,
                   maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 13,
@@ -63,12 +63,6 @@ class NewsItemGrid extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String _reduceTitle(String value) {
-    // get the first 50 characters of the description
-    const _max = 50;
-    return value.length < _max ? value : "${value.substring(0, _max)}…";
   }
 
   Widget _imageBuilder() {

@@ -1,7 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:news/models/news.dart';
 import 'package:news/providers/news_provider.dart';
 import 'package:news/widgets/image_viewer.dart';
 import 'package:provider/provider.dart';

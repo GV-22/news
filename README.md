@@ -19,15 +19,15 @@ A new Flutter project to view daily news (just for fun).
 
 ## Screenshots 📸
 
-<p float="left;padding=10px">
-  <img src="/screenshots/and.news.feed.png" width="240" height="480"> 
-  <img src="/screenshots/and.news.search.png" width="240" height="480"> 
-  <img src="/screenshots/and.news.viewer.png" width="240" height="480"> 
-</p>
-<p float="left;padding=10px">
-  <img src="/screenshots/and.news.saved.png" width="240" height="480"> 
-  <img src="/screenshots/ios.news.feed.png" width="" height="480"> 
-</p>
+|            Feed    |             Research news            |           Read a news         |
+|----------------|-------------------------------|-----------------------------|
+|![](./screenshots/and.news.feed.png)|![](./screenshots/and.news.search.png)|![](./screenshots/and.news.viewer.png)            |
+
+
+|      Saved news          |  Ios Feed                        |                      |
+|----------------|-------------------------------|-----------------------------|
+|![](./screenshots/and.news.saved.png)|![](./screenshots/ios.news.feed.png)|![](./screenshots/settings.png)            |
+
                                                                           
 ###### If you have any features you want to see in this package, feel free to make a suggestion. 🎉
 
